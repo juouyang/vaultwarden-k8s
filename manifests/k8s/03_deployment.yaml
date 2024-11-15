@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: vaultwarden
-          image: vaultwarden/server:1.32.4
+          image: vaultwarden/server:1.32.4-alpine
           ports:
             - containerPort: 80
           envFrom:
@@ -25,8 +25,8 @@ spec:
                 name: vaultwarden-env-secret
           resources:
             limits:
-              cpu: "500m"
-              memory: "128Mi"
+              cpu: "1000m"
+              memory: "1Gi"
           volumeMounts:
             - name: vaultwarden-storage
               mountPath: /data
@@ -34,3 +34,5 @@ spec:
         - name: vaultwarden-storage
           persistentVolumeClaim:
             claimName: vaultwarden-pvc
+      nodeSelector:
+        kubernetes.io/arch: arm64
